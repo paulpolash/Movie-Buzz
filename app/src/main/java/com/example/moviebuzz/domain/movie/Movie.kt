@@ -14,3 +14,4 @@ data class Movie(
     val tagline: String?,
     val homepage: String?
 )
+

@@ -9,7 +9,12 @@ class MovieRemoteDataSource(
 private val movieApiService: MovieApiService
 ): MovieDataSource.Remote {
     override suspend fun getMovies(): Result<MovieDto> {
-        TODO("Not yet implemented")
+        return try {
+            val response = movieApiService.getMovies("ad200a977037b49ee6478593a415c0ce")
+            Result.Success(response)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
     override suspend fun saveMovies(movies: Movie): String {
