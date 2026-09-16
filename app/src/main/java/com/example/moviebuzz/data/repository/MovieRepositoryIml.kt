@@ -10,7 +10,7 @@ class MovieRepositoryIml(
     private val localDataSource: MovieLocalDataSource,
     private val remoteDataSource: MovieRemoteDataSource
 ): MovieRepository {
-    override suspend fun getMovies(): Result<List<Movie>> {
+    override suspend fun getMovies(): Result<Movie> {
         //check local first
         return when (val localResult = localDataSource.getMovies()) {
             is Result.Success ->{
@@ -33,7 +33,7 @@ class MovieRepositoryIml(
             else -> {
                 Log.d("TAG", "Unknown error")
             }
-        }as Result<List<Movie>>
+        }as Result<Movie>
     }
 
 }
