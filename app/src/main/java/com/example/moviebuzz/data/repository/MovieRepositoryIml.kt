@@ -2,6 +2,7 @@ package com.example.moviebuzz.data.repository
 
 import android.util.Log
 import com.example.androidarchitecture.util.Result
+import com.example.moviebuzz.data.mapper.toMovieDbData
 import com.example.moviebuzz.domain.movie.Movie
 import com.example.moviebuzz.domain.repository.MovieRepository
 
@@ -20,14 +21,13 @@ class MovieRepositoryIml(
                 when (val remoteResult = remoteDataSource.getMovies()) {
                     is Result.Success -> {
                         //save to local
-//                        localDataSource.saveMovies(remoteResult.data.map { it.toDomain() })
+                        localDataSource.saveMovies(remoteResult.data.toMovieDbData())
                         //read again from local
                         localDataSource.getMovies()
                     }
                     is Result.Error -> {
                         remoteResult
                     }
-
                 }
             }
             else -> {
