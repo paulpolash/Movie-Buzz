@@ -1,4 +1,4 @@
-package com.example.moviebuzz.domain
+package com.example.moviebuzz.domain.useCase
 
 import com.example.androidarchitecture.util.Result
 import com.example.moviebuzz.domain.movie.Movie

@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.moviebuzz.ui.theme.MovieBuzzTheme
 
 class MainActivity : ComponentActivity() {
+//private lateinit var
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
