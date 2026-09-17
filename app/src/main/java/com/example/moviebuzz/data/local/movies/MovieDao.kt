@@ -11,5 +11,5 @@ interface MovieDao {
     suspend fun insertMovieData(movieDbData: MovieDbData)
 
     @Query("SELECT * FROM movies")
-    fun getMovies(): MovieDbData
+    fun getMovies(): MovieDbData?
 }
