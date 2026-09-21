@@ -9,14 +9,15 @@ import com.example.moviebuzz.ui.screen.MovieUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
         private val _uiState = MutableStateFlow(MovieUiState())
         val uiState : StateFlow<MovieUiState> = _uiState
-    private val _movieData = MutableStateFlow<List<Movie>>(emptyList())
-    val movieData: StateFlow<List<Movie>> = _movieData
+    private val _movieData = MutableStateFlow<Movie?>(null)
+    val movieData: StateFlow<Movie?> = _movieData.asStateFlow()
 
     fun getMovie(){
         viewModelScope.launch(Dispatchers.IO){
@@ -28,7 +29,7 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
             when(val result = movieUseCase()){
                 is Result.Success<*> ->{
                     withContext(Dispatchers.IO){
-                        _movieData.value = result.data as List<Movie>
+                        _movieData.value = result.data as Movie?
                         _uiState.value = MovieUiState(
                             movies = result.data
                         )
