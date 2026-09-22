@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
-        private val _uiState = MutableStateFlow(MovieUiState())
-        val uiState : StateFlow<MovieUiState> = _uiState
+    private val _uiState = MutableStateFlow(MovieUiState())
+    val uiState : StateFlow<MovieUiState> = _uiState
     private val _movieData = MutableStateFlow<Movie?>(null)
     val movieData: StateFlow<Movie?> = _movieData.asStateFlow()
 
