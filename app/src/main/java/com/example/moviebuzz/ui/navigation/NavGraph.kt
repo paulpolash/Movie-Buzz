@@ -5,17 +5,31 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.example.moviebuzz.MainActivity
+import com.example.moviebuzz.ui.screen.SplashScreen
 
 @Composable
 fun NavGraph(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = Routes.Home.route){
+    NavHost(navController = navController, startDestination = Routes.SplashScreen.route){
         composable(Routes.Home.route){
-
+            MainActivity()
         }
 
         composable(Routes.SplashScreen.route){
+            SplashScreen(
+                onNavigateToHome = {
+                    navController.navigate(Routes.Home.route){
+                        popUpTo(Routes.SplashScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
+
+        composable(Routes.Home.route) {
 
         }
     }
