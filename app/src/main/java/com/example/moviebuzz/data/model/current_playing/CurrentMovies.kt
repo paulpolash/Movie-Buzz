@@ -1,0 +1,9 @@
+package com.example.moviebuzz.data.model.current_playing
+
+data class CurrentMovies(
+    val dates: Dates,
+    val page: Int,
+    val results: List<Result>,
+    val total_pages: Int,
+    val total_results: Int
+)

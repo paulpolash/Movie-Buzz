@@ -10,6 +10,7 @@ interface MovieDataSource {
     interface Remote{
         suspend fun getMovies(): Result<MovieDto>
         suspend fun saveMovies(movies: Movie): String
+        suspend fun getCurrentMovies(): Result<Movie>
     }
 
     interface local{
