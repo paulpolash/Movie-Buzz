@@ -3,6 +3,7 @@ package com.example.moviebuzz.data.repository
 import com.example.androidarchitecture.util.Result
 import com.example.moviebuzz.data.model.MovieDto
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDto
+import com.example.moviebuzz.data.model.current_playing.CurrentMovies
 import com.example.moviebuzz.data.remote.MovieApiService
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
@@ -23,7 +24,7 @@ private val movieApiService: MovieApiService
         TODO("Not yet implemented")
     }
 
-    override suspend fun getCurrentMovies(): Result<CurrentMovieDto> {
+    override suspend fun getCurrentMovies(): Result<CurrentMovies> {
         return try {
             val response = movieApiService.getCurrentMovies("en", 1)
             Result.Success(response)

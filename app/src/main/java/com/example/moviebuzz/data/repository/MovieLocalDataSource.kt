@@ -4,6 +4,7 @@ import com.example.androidarchitecture.util.Result
 import com.example.moviebuzz.data.local.movies.MovieDao
 import com.example.moviebuzz.data.mapper.toDomain
 import com.example.moviebuzz.data.model.MovieDbData
+import com.example.moviebuzz.data.model.current_playing.CurrentMovieDbData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 import kotlinx.coroutines.Dispatchers
@@ -39,5 +40,9 @@ class MovieLocalDataSource(
                 Result.Error(Exception("Data not available"))
             }
         }
+    }
+
+    suspend fun saveCurrentMovies(movies: List<CurrentMovieDbData>) {
+        movieDao.insertCurrentMovieData(movies)
     }
 }

@@ -16,4 +16,7 @@ interface MovieDao {
 
     @Query("SELECT * FROM current_movies")
     fun getCurrentMovies(): CurrentMovieDbData?
+
+    @Insert
+    suspend fun insertCurrentMovieData(currentMovieDbData: List<CurrentMovieDbData>)
 }

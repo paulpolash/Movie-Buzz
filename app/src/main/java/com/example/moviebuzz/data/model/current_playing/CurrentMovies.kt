@@ -7,3 +7,14 @@ data class CurrentMovies(
     val total_pages: Int,
     val total_results: Int
 )
+//fun Result.toCurrentMovieDbData(): CurrentMovieDbData {
+//    return CurrentMovieDbData(
+//        id = id,
+//        originalTitle = original_title,
+//        popularity = popularity,
+//        overview = overview,
+//        posterPath = poster_path,
+//        backdropPath = backdrop_path,
+//        releaseDate = release_date
+//    )
+//}

@@ -11,6 +11,6 @@ interface MovieApiService {
     suspend fun getMovies(@Query("api_key") apiKey: String): MovieDto
 
     @GET(ApiEndPoints.GET_CURRENT_PLAYING)
-    suspend fun getCurrentMovies(@Query("language") language: String, @Query("page") page: Int): CurrentMovieDto
+    suspend fun getCurrentMovies(@Query("language") language: String, @Query("page") page: Int): CurrentMovies
 
 }

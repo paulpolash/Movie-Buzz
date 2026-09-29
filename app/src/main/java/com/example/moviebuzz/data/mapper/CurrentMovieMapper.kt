@@ -2,6 +2,7 @@ package com.example.moviebuzz.data.mapper
 
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDbData
 import com.example.moviebuzz.data.model.current_playing.Result
+import com.example.moviebuzz.data.model.current_playing.toMovieDbData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 
 
@@ -26,4 +27,10 @@ fun CurrentMovieDbData.toDomain(): CurrentMovie{
         backdropPath = backdropPath,
         releaseDate = releaseDate
     )
+}
+
+fun List<Result>.toDbData(): List<CurrentMovieDbData> {
+    return map { result ->
+        result.toMovieDbData()
+    }
 }
