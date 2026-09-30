@@ -20,7 +20,7 @@ interface MovieDataSource {
     interface local{
         suspend fun getMovies(): Result<Movie>
         suspend fun saveMovies(movies: MovieDbData)
-        suspend fun getCurrentMovies(): Result<CurrentMovie>
-        suspend fun saveCurrentMovies(movies: CurrentMovieDbData)
+        suspend fun getCurrentMovies(): Result<List<CurrentMovie>>
+        suspend fun saveCurrentMovies(movies: List<CurrentMovieDbData>)
     }
 }

@@ -6,5 +6,5 @@ import com.example.moviebuzz.domain.movie.Movie
 
 interface MovieRepository {
     suspend fun getMovies(): Result<Movie>
-    suspend fun getCurrentMovies(): Result<CurrentMovie>
+    suspend fun getCurrentMovies(): Result<List<CurrentMovie>>
 }

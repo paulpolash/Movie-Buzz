@@ -5,17 +5,17 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.example.moviebuzz.MainActivity
 import com.example.moviebuzz.ui.screen.HomeScreen
 import com.example.moviebuzz.ui.screen.SplashScreen
+import com.example.moviebuzz.ui.viewModel.MovieViewModel
 
 @Composable
 fun NavGraph(
-    navController: NavHostController
+    navController: NavHostController, viewModel: MovieViewModel
 ) {
     NavHost(navController = navController, startDestination = Routes.SplashScreen.route){
         composable(Routes.Home.route){
-            HomeScreen(true, "no issue")
+            HomeScreen(viewModel,true, "no issue")
         }
 
         composable(Routes.SplashScreen.route){
@@ -30,8 +30,8 @@ fun NavGraph(
             )
         }
 
-        composable(Routes.Home.route) {
-
-        }
+//        composable(Routes.Home.route) {
+//
+//        }
     }
 }

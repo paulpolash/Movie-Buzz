@@ -38,10 +38,11 @@ private lateinit var movieViewModel: MovieViewModel
         enableEdgeToEdge()
         setContent {
             movieViewModel.getMovie()
+            movieViewModel.getCurrentMovies()
             val data = movieViewModel.movieData
             MovieBuzzTheme {
                 val navController = rememberNavController()
-                NavGraph(navController)
+                NavGraph(navController, movieViewModel)
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(
 //                        name = "Android",

@@ -26,7 +26,8 @@ private val movieApiService: MovieApiService
 
     override suspend fun getCurrentMovies(): Result<CurrentMovies> {
         return try {
-            val response = movieApiService.getCurrentMovies("en", 1)
+            val auth = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZDIwMGE5NzcwMzdiNDllZTY0Nzg1OTNhNDE1YzBjZSIsIm5iZiI6MTY2MjU0OTE5MS4yNzEwMDAxLCJzdWIiOiI2MzE4N2NjN2VkMmFjMjAwN2EzNDRiMjMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.tWF_CJvDcSoEpAOsiYDf2nLyhj1Kh-SjtXKrPnX01tQ"
+            val response = movieApiService.getCurrentMovies(auth,"en", 1)
             Result.Success(response)
         } catch (e: Exception) {
             Result.Error(e)

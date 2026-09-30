@@ -34,3 +34,6 @@ fun List<Result>.toDbData(): List<CurrentMovieDbData> {
         result.toMovieDbData()
     }
 }
+fun List<Result>.toCurrentMovieDbData(): List<CurrentMovieDbData> {
+    return this.map { it.toMovieDbData() }
+}

@@ -30,19 +30,19 @@ class MovieLocalDataSource(
 
     }
 
-    override suspend fun getCurrentMovies(): Result<CurrentMovie> {
+    override suspend fun getCurrentMovies(): Result<List<CurrentMovie>> {
         return withContext(Dispatchers.IO) {
             val movie = movieDao.getCurrentMovies()
 
-            if (movie != null) {
-                Result.Success(movie.toDomain())
+            if (movie?.size !=0) {
+                Result.Success(movie?.map { it.toDomain() } ?: emptyList())
             } else {
                 Result.Error(Exception("Data not available"))
             }
         }
     }
 
-    suspend fun saveCurrentMovies(movies: List<CurrentMovieDbData>) {
+    override suspend fun saveCurrentMovies(movies: List<CurrentMovieDbData>) {
         movieDao.insertCurrentMovieData(movies)
     }
 }

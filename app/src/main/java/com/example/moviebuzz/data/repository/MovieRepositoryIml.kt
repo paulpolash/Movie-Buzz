@@ -2,6 +2,7 @@ package com.example.moviebuzz.data.repository
 
 import android.util.Log
 import com.example.androidarchitecture.util.Result
+import com.example.moviebuzz.data.mapper.toCurrentMovieDbData
 import com.example.moviebuzz.data.mapper.toDbData
 import com.example.moviebuzz.data.mapper.toMovieDbData
 import com.example.moviebuzz.domain.movie.CurrentMovie
@@ -38,8 +39,9 @@ class MovieRepositoryIml(
         }as Result<Movie>
     }
 
-    override suspend fun getCurrentMovies(): Result<CurrentMovie> {
+    override suspend fun getCurrentMovies(): Result<List<CurrentMovie>> {
         return when (val currentLocalResult = localDataSource.getCurrentMovies()){
+
             is Result.Success ->{
                 currentLocalResult
             }
@@ -47,19 +49,19 @@ class MovieRepositoryIml(
             is Result.Error -> {
                 when(val remoteResult = remoteDataSource.getCurrentMovies()){
                     is Result.Success -> {
-                        localDataSource.saveCurrentMovies(remoteResult.data.results.toDbData())
+                        localDataSource.saveCurrentMovies(remoteResult.data.results.toCurrentMovieDbData())
                         localDataSource.getCurrentMovies()
                     }
                     is Result.Error -> {
-                        remoteResult
+                        Result.Error(remoteResult.error)
                     }
-                    else -> {
-                        Log.d("TAG", "Unknown error")
-                    }
+//                    else -> {
+//                        Log.d("TAG", "Unknown error")
+//                    }
 
                 }
             }
-        } as Result<CurrentMovie>
+        } //as Result<List<CurrentMovie>>
 
-        }
+    }
 }
