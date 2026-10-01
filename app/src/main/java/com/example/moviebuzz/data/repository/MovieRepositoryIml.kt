@@ -55,13 +55,9 @@ class MovieRepositoryIml(
                     is Result.Error -> {
                         Result.Error(remoteResult.error)
                     }
-//                    else -> {
-//                        Log.d("TAG", "Unknown error")
-//                    }
-
                 }
             }
-        } //as Result<List<CurrentMovie>>
+        }
 
     }
 }

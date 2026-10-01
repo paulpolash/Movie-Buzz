@@ -1,9 +1,16 @@
 package com.example.moviebuzz.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -24,73 +31,88 @@ import com.example.moviebuzz.domain.movie.Movie
 import com.example.moviebuzz.ui.viewModel.MovieViewModel
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
+import com.example.moviebuzz.domain.movie.CurrentMovie
+private val Background = Color(0xFF071522)
+private val SecondaryText = Color(0xFF9EADBD)
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun HomeScreen(
-    viewModel: MovieViewModel,
-    isLoading: Boolean,
-    error: String?,
-){
-    val state by viewModel.uiState.collectAsState()
-    val movies = state.currentMovies
+    movies: List<CurrentMovie>,
+    onSearchClick: () -> Unit = {},
+    onMenuClick: () -> Unit = {},
+    onMovieClick: (CurrentMovie) -> Unit = {},
+    onHomeClick: () -> Unit = {},
+    onMoviesClick: () -> Unit = {},
+    onFavoritesClick: () -> Unit = {}
+)
+{
     Scaffold(
+        containerColor = Background,
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Movie Buzz", color = androidx.compose.ui.graphics.Color.White)
-                },
-                actions = {
-                    IconButton(onClick = {
-                    /* Search action */
-                        viewModel.getCurrentMovies()
-                        val movies = viewModel.uiState
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search"
+            HomeTopBar(
+                onSearchClick = onSearchClick,
+                onMenuClick = onMenuClick
+            )
+        },
+        bottomBar = {
+            HomeBottomBar(
+                onHomeClick = onHomeClick,
+                onMoviesClick = onMoviesClick,
+                onSearchClick = onSearchClick,
+                onFavoritesClick = onFavoritesClick
+            )
+        }
+    ){ innerPadding ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Background)
+                .padding(innerPadding)
+        ) {
+            if (movies.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "No movies available",
+                        color = SecondaryText
+                    )
+                }
+            } else {
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    item {
+                        FeaturedMovieCard(
+                            movie = movies.first(),
+                            onClick = { onMovieClick(movies.first()) }
                         )
                     }
                 }
-            )
-        }
-    ) { innerPadding ->
-    when {
-        isLoading -> {
-            CircularProgressIndicator()
-        }
 
-        error != null -> {
-            Text(text = error)
-        }
+                Spacer(modifier = Modifier.height(24.dp))
 
-        movies.isEmpty() -> {
-            Text(text = "No movies found")
-        }
+                MovieSection(
+                    title = "Now Playing",
+                    movies = movies,
+                    onMovieClick = onMovieClick
+                )
 
-        else -> {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                contentPadding = PaddingValues(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(movies) { movie ->
-//                    MovieItem(
-//                        movie = movie,
-//                        onClick = { }
-//                    )
-                    Text(
-                        text = movie.originalTitle,
-                        modifier = Modifier.padding(16.dp)
-                    )
-                }
+                Spacer(modifier = Modifier.height(24.dp))
+
+                MovieSection(
+                    title = "Popular Movies",
+                    movies = movies,
+                    onMovieClick = onMovieClick
+                )
             }
         }
     }
 }
-    }

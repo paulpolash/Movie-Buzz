@@ -1,6 +1,7 @@
 package com.example.moviebuzz.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
@@ -15,7 +16,27 @@ fun NavGraph(
 ) {
     NavHost(navController = navController, startDestination = Routes.SplashScreen.route){
         composable(Routes.Home.route){
-            HomeScreen(viewModel,true, "no issue")
+//            val viewModel: MovieViewModel = hiltViewModel()
+
+            val state = viewModel.uiState.collectAsState()
+//            HomeScreen(viewModel,true, "no issue")
+            HomeScreen(
+                movies = state.value.currentMovies,
+
+                onSearchClick = {
+                    // navController.navigate(Routes.Search.route)
+                },
+
+                onMovieClick = { movie ->
+                    // navController.navigate(
+                    //     Routes.MovieDetail.createRoute(movie.id)
+                    // )
+                },
+
+                onFavoritesClick = {
+                    // navController.navigate(Routes.Favorites.route)
+                }
+            )
         }
 
         composable(Routes.SplashScreen.route){
@@ -23,7 +44,7 @@ fun NavGraph(
                 onNavigateToHome = {
                     navController.navigate(Routes.Home.route){
                         popUpTo(Routes.SplashScreen.route) {
-                            inclusive = true
+                            inclusive = false
                         }
                     }
                 }
