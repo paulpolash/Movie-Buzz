@@ -36,7 +36,9 @@ fun FeaturedMovieCard(
             .fillMaxWidth()
             .height(230.dp)
             .clip(RoundedCornerShape(16.dp))
-            .clickable(onClick = onClick)
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center,
+
     ) {
         AsyncImage(
             model = movie.backdropPath?.let {
@@ -44,7 +46,8 @@ fun FeaturedMovieCard(
             },
             contentDescription = movie.originalTitle,
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.Center
         )
 
         Box(

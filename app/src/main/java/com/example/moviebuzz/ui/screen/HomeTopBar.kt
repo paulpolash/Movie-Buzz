@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.layout.statusBarsPadding
 
 private val Background = Color(0xFF071522)
 private val PrimaryPink = Color(0xFFFF315B)
@@ -30,6 +31,7 @@ fun HomeTopBar(
         modifier = Modifier
             .fillMaxWidth()
             .background(Background)
+            .statusBarsPadding()
             .padding(horizontal = 16.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -71,7 +71,8 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Background)
-                .padding(innerPadding)
+                .padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (movies.isEmpty()) {
                 Box(
@@ -87,7 +88,8 @@ fun HomeScreen(
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment =  Alignment.CenterVertically
                 ) {
                     item {
                         FeaturedMovieCard(
