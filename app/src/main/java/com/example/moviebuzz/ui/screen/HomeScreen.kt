@@ -89,7 +89,6 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxWidth(),
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment =  Alignment.CenterVertically
                 ) {
                     item {
                         FeaturedMovieCard(

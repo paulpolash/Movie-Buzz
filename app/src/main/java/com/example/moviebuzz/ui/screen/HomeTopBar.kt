@@ -19,9 +19,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.ui.tooling.preview.Preview
 
 private val Background = Color(0xFF071522)
 private val PrimaryPink = Color(0xFFFF315B)
+@Preview(showBackground = true)
 @Composable
 fun HomeTopBar(
     onSearchClick: () -> Unit,
