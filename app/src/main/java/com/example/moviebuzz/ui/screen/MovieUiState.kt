@@ -7,5 +7,11 @@ data class MovieUiState(
     val isLoading: Boolean = false,
     val movies: Movie?= null,
     val error: String? = null,
-    val currentMovies: List<CurrentMovie> = emptyList()
+    val currentMovies: List<CurrentMovie> = emptyList(),
+
+
+    val searchQuery: String = "",
+    val searchResults: List<CurrentMovie> = emptyList(),
+    val isSearchLoading: Boolean = false,
+    val searchError: String? = null
 )

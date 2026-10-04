@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.moviebuzz.ui.screen.HomeScreen
+import com.example.moviebuzz.ui.screen.SearchScreen
 import com.example.moviebuzz.ui.screen.SplashScreen
 import com.example.moviebuzz.ui.viewModel.MovieViewModel
 
@@ -24,7 +25,7 @@ fun NavGraph(
                 movies = state.value.currentMovies,
 
                 onSearchClick = {
-                    // navController.navigate(Routes.Search.route)
+                     navController.navigate(Routes.Search.route)
                 },
 
                 onMovieClick = { movie ->
@@ -54,5 +55,23 @@ fun NavGraph(
 //        composable(Routes.Home.route) {
 //
 //        }
+        composable(Routes.Search.route) {
+
+            val state = viewModel.uiState.collectAsState()
+            SearchScreen(
+                query = "",
+                movies = state.value.currentMovies,
+                isLoading = state.value.isLoading,
+                error = state.value.error,
+                onQueryChange = viewModel::onSearchQueryChange,
+//                onSearch = viewModel::searchMovies,
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onMovieClick = { movie ->
+                    // Navigate to movie details
+                }
+            )
+        }
     }
 }

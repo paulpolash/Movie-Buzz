@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.moviebuzz.domain.movie.CurrentMovie
+import com.example.moviebuzz.ui.navigation.Routes
+
 private val SurfaceDark = Color(0xFF102235)
 private val PrimaryPink = Color(0xFFFF315B)
 private val SecondaryText = Color(0xFF9EADBD)
@@ -34,7 +36,8 @@ private val SecondaryText = Color(0xFF9EADBD)
 fun MovieSection(
     title: String,
     movies: List<CurrentMovie>,
-    onMovieClick: (CurrentMovie) -> Unit
+    onMovieClick: (CurrentMovie) -> Unit,
+    onSearchClick: () -> Unit = {}
 ) {
     Column {
         Row(
@@ -56,7 +59,7 @@ fun MovieSection(
                 text = "See All",
                 color = PrimaryPink,
                 fontSize = 13.sp,
-                modifier = Modifier.clickable { }
+                modifier = Modifier.clickable { onSearchClick() }
             )
         }
 

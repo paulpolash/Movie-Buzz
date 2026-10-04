@@ -37,7 +37,6 @@ import com.example.moviebuzz.domain.movie.CurrentMovie
 private val Background = Color(0xFF071522)
 private val SecondaryText = Color(0xFF9EADBD)
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
 fun HomeScreen(
     movies: List<CurrentMovie>,
@@ -103,7 +102,8 @@ fun HomeScreen(
                 MovieSection(
                     title = "Now Playing",
                     movies = movies,
-                    onMovieClick = onMovieClick
+                    onMovieClick = onMovieClick,
+                    onSearchClick = onSearchClick
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -111,7 +111,8 @@ fun HomeScreen(
                 MovieSection(
                     title = "Popular Movies",
                     movies = movies,
-                    onMovieClick = onMovieClick
+                    onMovieClick = onMovieClick,
+                    onSearchClick = onSearchClick
                 )
             }
         }
