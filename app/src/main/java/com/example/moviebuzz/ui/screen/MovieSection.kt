@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -65,15 +66,15 @@ fun MovieSection(
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-//            items(
-//                items = movies,
-//                key = { it.id }
-//            ) { movie ->
-//                MovieCard(
-//                    movie = movie,
-//                    onClick = { onMovieClick(movie) }
-//                )
-//            }
+            items(
+                items = movies,
+                key = { it.id }
+            ) { movie ->
+                MovieCard(
+                    movie = movie,
+                    onClick = { onMovieClick(movie) }
+                )
+            }
         }
     }
 }
