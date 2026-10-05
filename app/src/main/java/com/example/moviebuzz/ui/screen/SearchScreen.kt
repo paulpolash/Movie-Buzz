@@ -44,7 +44,8 @@ fun SearchScreen(
     onQueryChange: (String) -> Unit = {},
 //    onSearch: () -> Unit,
     onBackClick: () -> Unit = {},
-    onMovieClick: (CurrentMovie) -> Unit = {}
+    onMovieClick: () -> Unit = {}
+//    onMovieClick: (CurrentMovie) -> Unit = {}
 ) {
     Scaffold(
         containerColor = SearchBackground,
@@ -181,7 +182,8 @@ fun SearchScreen(
                         ) { movie ->
                             SearchMovieCard(
                                 movie = movie,
-                                onClick = { onMovieClick(movie) }
+                                onClick = { onMovieClick() }
+//                                onClick = { onMovieClick(movie) }
                             )
                         }
                     }

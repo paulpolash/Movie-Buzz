@@ -2,11 +2,11 @@ package com.example.moviebuzz.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.moviebuzz.ui.screen.HomeScreen
+import com.example.moviebuzz.ui.screen.MovieDetail
 import com.example.moviebuzz.ui.screen.SearchScreen
 import com.example.moviebuzz.ui.screen.SplashScreen
 import com.example.moviebuzz.ui.viewModel.MovieViewModel
@@ -29,9 +29,9 @@ fun NavGraph(
                 },
 
                 onMovieClick = { movie ->
-                    // navController.navigate(
-                    //     Routes.MovieDetail.createRoute(movie.id)
-                    // )
+//                     navController.navigate(
+//                         Routes.MovieDetail.createRoute(movie.id)
+//                     )
                 },
 
                 onFavoritesClick = {
@@ -68,8 +68,19 @@ fun NavGraph(
                 onBackClick = {
                     navController.popBackStack()
                 },
-                onMovieClick = { movie ->
+                onMovieClick = {
                     // Navigate to movie details
+                     navController.navigate(
+                         Routes.MovieDetail.route
+                     )
+                }
+            )
+        }
+
+        composable(Routes.MovieDetail.route) {
+            MovieDetail(
+                onBackClick = {
+                    navController.popBackStack()
                 }
             )
         }

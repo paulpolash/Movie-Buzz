@@ -5,5 +5,6 @@ sealed class Routes(var route: String) {
     data object Home : Routes("home")
     data object Search : Routes("search")
     data object Favorite : Routes("favorite")
+    data object MovieDetail : Routes("movie_detail")
 
 }

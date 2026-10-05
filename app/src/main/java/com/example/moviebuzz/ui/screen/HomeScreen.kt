@@ -37,6 +37,7 @@ import com.example.moviebuzz.domain.movie.CurrentMovie
 private val Background = Color(0xFF071522)
 private val SecondaryText = Color(0xFF9EADBD)
 @OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
 @Composable
 fun HomeScreen(
     movies: List<CurrentMovie>,
