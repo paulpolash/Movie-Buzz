@@ -59,7 +59,7 @@ fun NavGraph(
 
             val state = viewModel.uiState.collectAsState()
             SearchScreen(
-                query = "",
+                query = String(),
                 movies = state.value.currentMovies,
                 isLoading = state.value.isLoading,
                 error = state.value.error,

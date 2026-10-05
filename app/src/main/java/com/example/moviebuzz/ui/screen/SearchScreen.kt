@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -34,17 +35,16 @@ private val SearchBackground = Color(0xFF071522)
 private val SearchSurface = Color(0xFF102235)
 private val SearchPink = Color(0xFFFF315B)
 private val SearchTextSecondary = Color(0xFF9EADBD)
-
 @Composable
 fun SearchScreen(
-    query: String,
-    movies: List<CurrentMovie>,
-    isLoading: Boolean,
-    error: String?,
-    onQueryChange: (String) -> Unit,
+    query: String = String(),
+    movies: List<CurrentMovie> = emptyList(),
+    isLoading: Boolean = false,
+    error: String? = null,
+    onQueryChange: (String) -> Unit = {},
 //    onSearch: () -> Unit,
-    onBackClick: () -> Unit,
-    onMovieClick: (CurrentMovie) -> Unit
+    onBackClick: () -> Unit = {},
+    onMovieClick: (CurrentMovie) -> Unit = {}
 ) {
     Scaffold(
         containerColor = SearchBackground,
@@ -150,9 +150,9 @@ fun SearchScreen(
                     SearchMessage(message = error)
                 }
 
-                query.isBlank() -> {
-                    SearchMessage(message = "Search for your favorite movies")
-                }
+//                query.isBlank() -> {
+//                    SearchMessage(message = "Search for your favorite movies")
+//                }
 
                 movies.isEmpty() -> {
                     SearchMessage(message = "No movies found")
@@ -242,4 +242,18 @@ private fun SearchMessage(message: String) {
             fontSize = 14.sp
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SearchScreenPreview() {
+    SearchScreen(
+        query = "",
+        movies = emptyList(),
+        isLoading = false,
+        error = null,
+        onQueryChange = {},
+        onBackClick = {},
+        onMovieClick = {}
+    )
 }
