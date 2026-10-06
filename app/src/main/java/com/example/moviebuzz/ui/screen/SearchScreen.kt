@@ -22,13 +22,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.moviebuzz.ui.navigation.Routes
+import com.example.moviebuzz.ui.viewModel.MovieViewModel
 
 
 private val SearchBackground = Color(0xFF071522)
@@ -44,9 +48,10 @@ fun SearchScreen(
     onQueryChange: (String) -> Unit = {},
 //    onSearch: () -> Unit,
     onBackClick: () -> Unit = {},
-    onMovieClick: () -> Unit = {}
+    navController: NavHostController
 //    onMovieClick: (CurrentMovie) -> Unit = {}
 ) {
+    
     Scaffold(
         containerColor = SearchBackground,
         topBar = {
@@ -182,7 +187,9 @@ fun SearchScreen(
                         ) { movie ->
                             SearchMovieCard(
                                 movie = movie,
-                                onClick = { onMovieClick() }
+                                onClick = {
+                                    navController.navigate(Routes.PersonDetails.createRoute(movie.id))
+                                    }
 //                                onClick = { onMovieClick(movie) }
                             )
                         }
@@ -256,6 +263,6 @@ private fun SearchScreenPreview() {
         error = null,
         onQueryChange = {},
         onBackClick = {},
-        onMovieClick = {}
+        navController = NavHostController(LocalContext.current)
     )
 }

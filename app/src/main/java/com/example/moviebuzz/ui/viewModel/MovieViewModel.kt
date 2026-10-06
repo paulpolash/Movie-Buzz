@@ -80,4 +80,7 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
             )
         }
     }
+    fun getMovieById(movieId: Int): CurrentMovie {
+        return currentMovieList.value.find { it.id == movieId } ?: throw IllegalArgumentException("Movie not found")
+    }
 }

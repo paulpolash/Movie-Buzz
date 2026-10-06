@@ -68,20 +68,25 @@ fun NavGraph(
                 onBackClick = {
                     navController.popBackStack()
                 },
-                onMovieClick = {
-                    // Navigate to movie details
-                     navController.navigate(
-                         Routes.MovieDetail.route
-                     )
-                }
+                navController
             )
         }
 
+//        composable(Routes.MovieDetail.route) {
+//            MovieDetail(
+//                onBackClick = {
+//                    navController.popBackStack()
+//                }
+//            )
+//        }
         composable(Routes.MovieDetail.route) {
+            val movieId = it.arguments?.getString("movieId")?.toInt()?:return@composable
+            val movie = viewModel.getMovieById(movieId)
             MovieDetail(
                 onBackClick = {
                     navController.popBackStack()
-                }
+                },
+                movie = movie
             )
         }
     }
