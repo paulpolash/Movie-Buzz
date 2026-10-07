@@ -188,7 +188,7 @@ fun SearchScreen(
                             SearchMovieCard(
                                 movie = movie,
                                 onClick = {
-                                    navController.navigate(Routes.PersonDetails.createRoute(movie.id))
+                                    navController.navigate(Routes.MovieDetail.createRoute(movie.id))
                                     }
 //                                onClick = { onMovieClick(movie) }
                             )

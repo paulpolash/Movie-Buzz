@@ -6,10 +6,7 @@ sealed class Routes(var route: String) {
     data object Search : Routes("search")
     data object Favorite : Routes("favorite")
     data object MovieDetail : Routes("movie_detail/{movieId}"){
-        fun createRoute(movieId: String) = "movie_detail/$movieId"
-    }
-    object PersonDetails : Routes("detail/{personId}"){
-        fun createRoute(personId: Int) = "detail/$personId"
+        fun createRoute(movieId: Int) = "movie_detail/$movieId"
     }
 
 }
