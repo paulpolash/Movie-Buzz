@@ -2,6 +2,8 @@ package com.example.moviebuzz.ui.screen
 
 import android.R
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,9 +20,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Adjust
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.material3.Button
@@ -33,8 +38,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -192,9 +199,66 @@ fun MovieDetail(
                     Text(text = "Watch Trailer", color = Color.White, fontSize = 14.sp)
                 }
 
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    MovieItemInfo(
+                        icon = Icons.Default.AccessTime,
+                        text = "120 min"
+                    )
+
+                    MovieItemInfo(
+                        icon = Icons.Default.Movie,
+                        text = "PG-13"
+                    )
+
+                    MovieItemInfo(
+                        icon = Icons.Default.Language,
+                        text = "English"
+                    )
+
+                }
+                Spacer(modifier = Modifier.height(25.dp))
+
+                //cast
+                Text(text = "Cast", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+
+                Row(
+                    modifier = Modifier.horizontalScroll(
+                        rememberScrollState()
+                    ),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+
             }
         }
     }
 }
 
+@Composable
+fun MovieItemInfo(
+    icon: ImageVector,
+    text : String
+){
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = Color.LightGray,
+            modifier = Modifier.size(20.dp)
+        )
 
+        Spacer(modifier = Modifier.width(5.dp))
+
+        Text(
+            text = text,
+            color = Color.LightGray,
+            fontSize = 14.sp
+        )
+    }
+}
