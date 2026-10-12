@@ -82,11 +82,13 @@ fun NavGraph(
         composable(Routes.MovieDetail.route) {
             val movieId = it.arguments?.getString("movieId")?.toInt()?:return@composable
             val movie = viewModel.getMovieById(movieId)
+            val state = viewModel.uiState.collectAsState()
             MovieDetail(
                 onBackClick = {
                     navController.popBackStack()
                 },
-                movie = movie
+                movie = movie,
+                state.value.currentMovies
             )
         }
     }
