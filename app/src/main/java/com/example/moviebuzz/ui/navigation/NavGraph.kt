@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.example.moviebuzz.ui.screen.AboutScreen
 import com.example.moviebuzz.ui.screen.HomeScreen
 import com.example.moviebuzz.ui.screen.MovieDetail
 import com.example.moviebuzz.ui.screen.SearchScreen
@@ -36,7 +37,8 @@ fun NavGraph(
 
                 onFavoritesClick = {
                     // navController.navigate(Routes.Favorites.route)
-                }
+                },
+                navController = navController
             )
         }
 
@@ -52,9 +54,13 @@ fun NavGraph(
             )
         }
 
-//        composable(Routes.Home.route) {
-//
-//        }
+        composable(Routes.About.route){
+             AboutScreen(
+                 onBackClick = {
+                     navController.popBackStack()
+                 },
+             )
+        }
         composable(Routes.Search.route) {
 
             val state = viewModel.uiState.collectAsState()

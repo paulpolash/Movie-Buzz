@@ -19,7 +19,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 
 private val Background = Color(0xFF071522)
 private val PrimaryPink = Color(0xFFFF315B)
@@ -27,8 +34,10 @@ private val PrimaryPink = Color(0xFFFF315B)
 @Composable
 fun HomeTopBar(
     onSearchClick: () -> Unit,
-    onMenuClick: () -> Unit
+    onMenuClick: () -> Unit,
+    navController: NavHostController
 ) {
+    var expanded by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -61,12 +70,28 @@ fun HomeTopBar(
             )
         }
 
-        IconButton(onClick = onMenuClick) {
+        IconButton(
+            onClick = {expanded = true}
+        ) {
             Icon(
                 imageVector = Icons.Default.Menu,
                 contentDescription = "Menu",
                 tint = Color.White
             )
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                DropdownMenuItem(
+                    text = { Text("About") },
+                    onClick = {
+                        expanded = false
+//                        onMenuClick()
+                        navController.navigate("about")
+
+                    }
+                )
+            }
         }
     }
 }

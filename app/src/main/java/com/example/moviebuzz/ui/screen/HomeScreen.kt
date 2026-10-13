@@ -33,6 +33,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavHostController
 import com.example.moviebuzz.domain.movie.CurrentMovie
 private val Background = Color(0xFF071522)
 private val SecondaryText = Color(0xFF9EADBD)
@@ -46,7 +47,8 @@ fun HomeScreen(
     onMovieClick: (CurrentMovie) -> Unit = {},
     onHomeClick: () -> Unit = {},
     onMoviesClick: () -> Unit = {},
-    onFavoritesClick: () -> Unit = {}
+    onFavoritesClick: () -> Unit = {},
+    navController: NavHostController
 )
 {
     Scaffold(
@@ -54,7 +56,8 @@ fun HomeScreen(
         topBar = {
             HomeTopBar(
                 onSearchClick = onSearchClick,
-                onMenuClick = onMenuClick
+                onMenuClick = onMenuClick,
+                navController
             )
         },
         bottomBar = {
