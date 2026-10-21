@@ -6,6 +6,7 @@ import com.example.moviebuzz.data.model.MovieDto
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDbData
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDto
 import com.example.moviebuzz.data.model.current_playing.CurrentMovies
+import com.example.moviebuzz.data.model.popular_movie.PopularMovie
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 
@@ -15,6 +16,7 @@ interface MovieDataSource {
         suspend fun getMovies(): Result<MovieDto>
         suspend fun saveMovies(movies: Movie): String
         suspend fun getCurrentMovies(): Result<CurrentMovies>
+        suspend fun getPopularMovie(): Result<PopularMovie>
     }
 
     interface local{

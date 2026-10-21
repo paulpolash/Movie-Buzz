@@ -3,6 +3,7 @@ package com.example.moviebuzz.data.remote
 import com.example.moviebuzz.data.model.MovieDto
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDto
 import com.example.moviebuzz.data.model.current_playing.CurrentMovies
+import com.example.moviebuzz.data.model.popular_movie.PopularMovie
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -17,5 +18,11 @@ interface MovieApiService {
         @Header("Authorization") authorization: String,
         @Query("language") language: String,
         @Query("page") page: Int): CurrentMovies
+
+    @GET(ApiEndPoints.GET_POPULAR_MOVIE)
+    suspend fun getPopularMovies(
+        @Header("Authorization") authorization: String,
+        @Query("language") language: String,
+        @Query("page") page: Int): PopularMovie
 
 }

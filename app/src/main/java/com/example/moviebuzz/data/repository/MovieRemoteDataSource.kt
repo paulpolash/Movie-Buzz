@@ -4,6 +4,7 @@ import com.example.androidarchitecture.util.Result
 import com.example.moviebuzz.data.model.MovieDto
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDto
 import com.example.moviebuzz.data.model.current_playing.CurrentMovies
+import com.example.moviebuzz.data.model.popular_movie.PopularMovie
 import com.example.moviebuzz.data.remote.MovieApiService
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
@@ -32,5 +33,9 @@ private val movieApiService: MovieApiService
         } catch (e: Exception) {
             Result.Error(e)
         }
+    }
+
+    override suspend fun getPopularMovie(): Result<PopularMovie> {
+        TODO("Not yet implemented")
     }
 }
