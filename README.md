@@ -10,7 +10,6 @@ MovieBazz is an Android movie discovery app built with Kotlin and Jetpack Compos
 - **Favorites:** Keep track of favorite movies.
 - **Modern UI:** Built with Jetpack Compose and Material 3.
 
-> Only keep the features that are currently implemented.
 
 ## 🛠️ Tech Stack
 
@@ -24,7 +23,7 @@ MovieBazz is an Android movie discovery app built with Kotlin and Jetpack Compos
 - **Data Storage:** Room or DataStore
 
 ## 📸 Screenshots
-<img width="1080" height="2400" alt="home_screen" src="https://github.com/user-attachments/assets/c9e86e6b-4a28-4a9b-a133-d63e1dc31b4c" />
+<img width="1080" height="1920" alt="home_screen" src="https://github.com/user-attachments/assets/c9e86e6b-4a28-4a9b-a133-d63e1dc31b4c" />
 
 
 ## 🚀 Getting Started
