@@ -1,6 +1,7 @@
 package com.example.moviebuzz
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -40,6 +41,9 @@ private lateinit var movieViewModel: MovieViewModel
             movieViewModel.getMovie()
             movieViewModel.getCurrentMovies()
             val data = movieViewModel.movieData
+            movieViewModel.getPopularMovies()
+            val popularMovies = movieViewModel.popularMovieList
+            Log.d("TAG", "onCreate: $data")
             MovieBuzzTheme {
                 val navController = rememberNavController()
                 NavGraph(navController, movieViewModel)

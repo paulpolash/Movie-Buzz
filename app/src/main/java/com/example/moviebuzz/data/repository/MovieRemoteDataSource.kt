@@ -36,6 +36,12 @@ private val movieApiService: MovieApiService
     }
 
     override suspend fun getPopularMovie(): Result<PopularMovie> {
-        TODO("Not yet implemented")
+        return try{
+            val auth = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZDIwMGE5NzcwMzdiNDllZTY0Nzg1OTNhNDE1YzBjZSIsIm5iZiI6MTY2MjU0OTE5MS4yNzEwMDAxLCJzdWIiOiI2MzE4N2NjN2VkMmFjMjAwN2EzNDRiMjMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.tWF_CJvDcSoEpAOsiYDf2nLyhj1Kh-SjtXKrPnX01tQ"
+            val response = movieApiService.getPopularMovies(auth,"en", 1)
+            Result.Success(response)
+        }catch(e: Exception){
+            Result.Error(e)
+        }
     }
 }

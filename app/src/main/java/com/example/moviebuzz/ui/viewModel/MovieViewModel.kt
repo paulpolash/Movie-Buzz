@@ -3,6 +3,7 @@ package com.example.moviebuzz.ui.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidarchitecture.util.Result
+import com.example.moviebuzz.data.model.popular_movie.PopularMovie
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 import com.example.moviebuzz.domain.useCase.UseCase
@@ -22,7 +23,8 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
     val movieData: StateFlow<Movie?> = _movieData.asStateFlow()
     private val _CurrentMovieList = MutableStateFlow<List<CurrentMovie>>(emptyList())
     val currentMovieList: StateFlow<List<CurrentMovie>> = _CurrentMovieList.asStateFlow()
-
+    private val _popularMovieList = MutableStateFlow<PopularMovie?>(null)
+    val popularMovieList: StateFlow<PopularMovie?> = _popularMovieList.asStateFlow()
     fun getMovie(){
         viewModelScope.launch(Dispatchers.IO){
 
@@ -82,5 +84,29 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
     }
     fun getMovieById(movieId: Int): CurrentMovie {
         return currentMovieList.value.find { it.id == movieId } ?: throw IllegalArgumentException("Movie not found")
+    }
+    fun getPopularMovies() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.value = MovieUiState(
+                isLoading = true
+            )
+
+            when (val result = movieUseCase.getPopularMovies()) {
+                is Result.Success -> {
+                    withContext(Dispatchers.IO) {
+                        _popularMovieList.value = result.data
+                        _uiState.value = MovieUiState(
+                            popularMovies = result.data
+                        )
+                    }
+                }
+                is Result.Error -> {
+                    _uiState.value = MovieUiState(
+                        error = result.error.message
+                    )
+                }
+
+                    }
+        }
     }
 }

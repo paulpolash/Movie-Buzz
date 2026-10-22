@@ -5,6 +5,7 @@ import com.example.androidarchitecture.util.Result
 import com.example.moviebuzz.data.mapper.toCurrentMovieDbData
 import com.example.moviebuzz.data.mapper.toDbData
 import com.example.moviebuzz.data.mapper.toMovieDbData
+import com.example.moviebuzz.data.model.popular_movie.PopularMovie
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 import com.example.moviebuzz.domain.repository.MovieRepository
@@ -16,9 +17,10 @@ class MovieRepositoryIml(
     override suspend fun getMovies(): Result<Movie> {
         //check local first
         return when (val localResult = localDataSource.getMovies()) {
-            is Result.Success ->{
+            is Result.Success -> {
                 localResult
             }
+
             is Result.Error -> {
                 //local is empty call remote and save to local
                 when (val remoteResult = remoteDataSource.getMovies()) {
@@ -28,30 +30,33 @@ class MovieRepositoryIml(
                         //read again from local
                         localDataSource.getMovies()
                     }
+
                     is Result.Error -> {
                         remoteResult
                     }
                 }
             }
+
             else -> {
                 Log.d("TAG", "Unknown error")
             }
-        }as Result<Movie>
+        } as Result<Movie>
     }
 
     override suspend fun getCurrentMovies(): Result<List<CurrentMovie>> {
-        return when (val currentLocalResult = localDataSource.getCurrentMovies()){
+        return when (val currentLocalResult = localDataSource.getCurrentMovies()) {
 
-            is Result.Success ->{
+            is Result.Success -> {
                 currentLocalResult
             }
 
             is Result.Error -> {
-                when(val remoteResult = remoteDataSource.getCurrentMovies()){
+                when (val remoteResult = remoteDataSource.getCurrentMovies()) {
                     is Result.Success -> {
                         localDataSource.saveCurrentMovies(remoteResult.data.results.toCurrentMovieDbData())
                         localDataSource.getCurrentMovies()
                     }
+
                     is Result.Error -> {
                         Result.Error(remoteResult.error)
                     }
@@ -59,5 +64,9 @@ class MovieRepositoryIml(
             }
         }
 
+    }
+
+    override suspend fun getPopularMovies(): Result<PopularMovie> {
+        return remoteDataSource.getPopularMovie()
     }
 }
