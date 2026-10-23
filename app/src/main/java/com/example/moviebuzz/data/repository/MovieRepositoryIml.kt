@@ -67,6 +67,21 @@ class MovieRepositoryIml(
     }
 
     override suspend fun getPopularMovies(): Result<PopularMovie> {
-        return remoteDataSource.getPopularMovie()
+        return when (val remoteResult = remoteDataSource.getPopularMovie()) {
+            is Result.Success -> {
+                remoteResult
+            }
+            is Result.Error -> {
+                when(val localResult = localDataSource.getMovies()){
+                    is Result.Success -> {
+                        localResult
+                    }
+                    is Result.Error -> {
+                        Result.Error(localResult.error)
+                    }
+                }
+                Result.Error(remoteResult.error)
+            }
+        }
     }
 }

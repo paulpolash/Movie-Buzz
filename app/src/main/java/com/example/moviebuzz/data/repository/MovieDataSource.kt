@@ -24,5 +24,7 @@ interface MovieDataSource {
         suspend fun saveMovies(movies: MovieDbData)
         suspend fun getCurrentMovies(): Result<List<CurrentMovie>>
         suspend fun saveCurrentMovies(movies: List<CurrentMovieDbData>)
+        suspend fun savePopularMovies(movies: PopularMovie)
+        suspend fun getPopularMovies(): Result<PopularMovie>
     }
 }
