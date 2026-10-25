@@ -6,9 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.moviebuzz.data.model.MovieDbData
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDbData
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieDbData
 
 @Database(
-    entities = [MovieDbData::class, CurrentMovieDbData::class],
+    entities = [MovieDbData::class,
+        CurrentMovieDbData::class,
+        PopularMovieDbData::class],
     version = 2,
     exportSchema = false
 )
