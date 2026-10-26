@@ -41,8 +41,8 @@ private lateinit var movieViewModel: MovieViewModel
             movieViewModel.getMovie()
             movieViewModel.getCurrentMovies()
             val data = movieViewModel.movieData
-            movieViewModel.getPopularMovies()
-            val popularMovies = movieViewModel.popularMovieList
+//            movieViewModel.getPopularMovies()
+//            val popularMovies = movieViewModel.popularMovieList
             Log.d("TAG", "onCreate: $data")
             MovieBuzzTheme {
                 val navController = rememberNavController()

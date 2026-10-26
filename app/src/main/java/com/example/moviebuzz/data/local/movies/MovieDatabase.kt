@@ -12,7 +12,7 @@ import com.example.moviebuzz.data.model.popular_movie.PopularMovieDbData
     entities = [MovieDbData::class,
         CurrentMovieDbData::class,
         PopularMovieDbData::class],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 abstract class MovieDatabase : RoomDatabase(){
@@ -28,7 +28,9 @@ abstract class MovieDatabase : RoomDatabase(){
                     context.applicationContext,
                     MovieDatabase::class.java,
                     "database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
