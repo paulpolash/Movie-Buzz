@@ -24,6 +24,7 @@ MovieBazz is an Android movie discovery app built with Kotlin and Jetpack Compos
 
 ## 📸 Screenshots
 <img width="1080" height="1920" alt="home_screen" src="https://github.com/user-attachments/assets/c9e86e6b-4a28-4a9b-a133-d63e1dc31b4c" />
+<img width="758" height="1599" alt="movie_detail" src="https://github.com/user-attachments/assets/c8bd1b86-f3cb-4892-bf48-84872b20d3a4" />
 
 
 ## 🚀 Getting Started
