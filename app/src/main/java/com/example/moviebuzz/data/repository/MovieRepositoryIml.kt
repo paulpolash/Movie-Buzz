@@ -6,6 +6,7 @@ import com.example.moviebuzz.data.mapper.toCurrentMovieDbData
 import com.example.moviebuzz.data.mapper.toDbData
 import com.example.moviebuzz.data.mapper.toMovieDbData
 import com.example.moviebuzz.data.model.popular_movie.PopularMovie
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieLocalData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 import com.example.moviebuzz.domain.repository.MovieRepository
@@ -66,21 +67,23 @@ class MovieRepositoryIml(
 
     }
 
-    override suspend fun getPopularMovies(): Result<PopularMovie> {
-        return when (val remoteResult = remoteDataSource.getPopularMovie()) {
+    override suspend fun getPopularMovies(): Result<List<PopularMovieLocalData>> {
+        return when (val localResult = localDataSource.getPopularMovies()) {
             is Result.Success -> {
-                remoteResult
+                localResult
             }
+
             is Result.Error -> {
-                when(val localResult = localDataSource.getMovies()){
+                when (val remoteResult = remoteDataSource.getPopularMovie()) {
                     is Result.Success -> {
-                        localResult
+                        localDataSource.savePopularMovies(remoteResult.data.results.toDbData())
+                        localDataSource.getPopularMovies()
                     }
+
                     is Result.Error -> {
-                        Result.Error(localResult.error)
+                        Result.Error(remoteResult.error)
                     }
                 }
-                Result.Error(remoteResult.error)
             }
         }
     }

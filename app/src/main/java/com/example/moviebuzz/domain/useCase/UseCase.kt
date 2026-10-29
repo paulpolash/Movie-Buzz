@@ -2,6 +2,7 @@ package com.example.moviebuzz.domain.useCase
 
 import com.example.androidarchitecture.util.Result
 import com.example.moviebuzz.data.model.popular_movie.PopularMovie
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieLocalData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 import com.example.moviebuzz.domain.repository.MovieRepository
@@ -17,7 +18,7 @@ class UseCase(
         return movieRepository.getCurrentMovies()
     }
 
-    suspend fun getPopularMovies(): Result<PopularMovie> {
+    suspend fun getPopularMovies(): Result<List<PopularMovieLocalData>> {
         return movieRepository.getPopularMovies()
     }
 }

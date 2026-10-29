@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidarchitecture.util.Result
 import com.example.moviebuzz.data.model.popular_movie.PopularMovie
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieLocalData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 import com.example.moviebuzz.domain.useCase.UseCase
@@ -23,8 +24,8 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
     val movieData: StateFlow<Movie?> = _movieData.asStateFlow()
     private val _CurrentMovieList = MutableStateFlow<List<CurrentMovie>>(emptyList())
     val currentMovieList: StateFlow<List<CurrentMovie>> = _CurrentMovieList.asStateFlow()
-    private val _popularMovieList = MutableStateFlow<PopularMovie?>(null)
-    val popularMovieList: StateFlow<PopularMovie?> = _popularMovieList.asStateFlow()
+    private val _popularMovieList = MutableStateFlow<List<PopularMovieLocalData>?>(null)
+    val popularMovieList: StateFlow<List<PopularMovieLocalData>?> = _popularMovieList.asStateFlow()
     fun getMovie(){
         viewModelScope.launch(Dispatchers.IO){
 

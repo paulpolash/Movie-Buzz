@@ -13,6 +13,6 @@ class PopularMovieDbData (
     val posterPath: String?,
     val backdropPath: String?,
     val releaseDate: String?,
-    val vote_average: String?,
-    val vote_count: String?,
+    val voteAverage: String?,
+    val voteCount: String?,
 )

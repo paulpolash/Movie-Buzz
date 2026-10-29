@@ -13,7 +13,7 @@ import com.example.moviebuzz.data.model.popular_movie.PopularMovieDbData
         CurrentMovieDbData::class,
         PopularMovieDbData::class],
     version = 4,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class MovieDatabase : RoomDatabase(){
     abstract fun movieDao(): MovieDao

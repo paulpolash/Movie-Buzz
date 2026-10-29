@@ -6,6 +6,8 @@ import com.example.moviebuzz.data.mapper.toDomain
 import com.example.moviebuzz.data.model.MovieDbData
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDbData
 import com.example.moviebuzz.data.model.popular_movie.PopularMovie
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieDbData
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieLocalData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 import kotlinx.coroutines.Dispatchers
@@ -47,11 +49,19 @@ class MovieLocalDataSource(
         movieDao.insertCurrentMovieData(movies)
     }
 
-    override suspend fun savePopularMovies(movies: PopularMovie) {
-        TODO("Not yet implemented")
+    override suspend fun savePopularMovies(movies: List<PopularMovieDbData>) {
+        movieDao.insertPopularMovieData(movies)
     }
 
-    override suspend fun getPopularMovies(): Result<PopularMovie> {
-        TODO("Not yet implemented")
+    override suspend fun getPopularMovies(): Result<List<PopularMovieLocalData>> {
+        return withContext(Dispatchers.IO) {
+            val movie = movieDao.getPopularMovies()
+
+            if (movie?.size !=0) {
+                Result.Success(movie?.map { it.toDomain() } ?: emptyList())
+            } else {
+                Result.Error(Exception("Data not available"))
+            }
+    }
     }
 }

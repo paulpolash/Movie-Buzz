@@ -7,6 +7,8 @@ import com.example.moviebuzz.data.model.current_playing.CurrentMovieDbData
 import com.example.moviebuzz.data.model.current_playing.CurrentMovieDto
 import com.example.moviebuzz.data.model.current_playing.CurrentMovies
 import com.example.moviebuzz.data.model.popular_movie.PopularMovie
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieDbData
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieLocalData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.domain.movie.Movie
 
@@ -24,7 +26,7 @@ interface MovieDataSource {
         suspend fun saveMovies(movies: MovieDbData)
         suspend fun getCurrentMovies(): Result<List<CurrentMovie>>
         suspend fun saveCurrentMovies(movies: List<CurrentMovieDbData>)
-        suspend fun savePopularMovies(movies: PopularMovie)
-        suspend fun getPopularMovies(): Result<PopularMovie>
+        suspend fun savePopularMovies(movies: List<PopularMovieDbData>)
+        suspend fun getPopularMovies(): Result<List<PopularMovieLocalData>>
     }
 }
