@@ -36,6 +36,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
+import com.example.moviebuzz.data.model.popular_movie.PopularMovie
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieLocalData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 private val Background = Color(0xFF071522)
 private val SecondaryText = Color(0xFF9EADBD)
@@ -43,7 +45,9 @@ private val SecondaryText = Color(0xFF9EADBD)
 @Preview(showBackground = true)
 @Composable
 fun HomeScreen(
+    viewModel: MovieViewModel,
     movies: List<CurrentMovie>,
+    popularMovies: List<PopularMovieLocalData>,
     onSearchClick: () -> Unit = {},
     onMenuClick: () -> Unit = {},
     onMovieClick: (CurrentMovie) -> Unit = {},
@@ -53,6 +57,8 @@ fun HomeScreen(
     navController: NavHostController
 )
 {
+//    val isRefreshing by viewModel.isRefreshing.collectAsState()
+//    val uiState by viewModel.uiState.collectAsState()
     Scaffold(
         containerColor = Background,
         topBar = {
@@ -80,7 +86,7 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (movies.isEmpty()) {
+            if (movies.isEmpty() && popularMovies.isEmpty()) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -96,12 +102,12 @@ fun HomeScreen(
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    item {
-                        FeaturedMovieCard(
-                            movie = movies.first(),
-                            onClick = { onMovieClick(movies.first()) }
-                        )
-                    }
+//                    item {
+//                        FeaturedMovieCard(
+//                            movie = movies.first(),
+//                            onClick = { onMovieClick(movies.first()) }
+//                        )
+//                    }
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -115,10 +121,10 @@ fun HomeScreen(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                MovieSection(
+                PopularMovieSection(
                     title = "Popular Movies",
-                    movies = movies,
-                    onMovieClick = onMovieClick,
+                    popularMovies = popularMovies,
+                    onMovieClick =  {},
                     onSearchClick = onSearchClick
                 )
             }

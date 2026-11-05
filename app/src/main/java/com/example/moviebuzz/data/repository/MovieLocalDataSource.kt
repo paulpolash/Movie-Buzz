@@ -30,7 +30,6 @@ class MovieLocalDataSource(
 
     override suspend fun saveMovies(movies: MovieDbData) {
         movieDao.insertMovieData(movies)
-
     }
 
     override suspend fun getCurrentMovies(): Result<List<CurrentMovie>> {

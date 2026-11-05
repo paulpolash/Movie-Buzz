@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.moviebuzz.data.model.popular_movie.PopularMovieLocalData
 import com.example.moviebuzz.domain.movie.CurrentMovie
 import com.example.moviebuzz.ui.navigation.Routes
 
@@ -85,6 +86,99 @@ fun MovieSection(
 @Composable
 private fun MovieCard(
     movie: CurrentMovie,
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .width(125.dp)
+            .clickable(onClick = onClick)
+    ) {
+        AsyncImage(
+            model = movie.posterPath?.let {
+                "https://image.tmdb.org/t/p/w342$it"
+            },
+            contentDescription = movie.originalTitle,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(175.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(SurfaceDark),
+            contentScale = ContentScale.Crop
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = movie.originalTitle,
+            color = Color.White,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+
+        Text(
+            text = movie.releaseDate.orEmpty().take(4),
+            color = SecondaryText,
+            fontSize = 11.sp
+        )
+    }
+}
+
+@Composable
+fun PopularMovieSection(
+    title: String,
+    popularMovies: List<PopularMovieLocalData>,
+    onMovieClick: (PopularMovieLocalData) -> Unit,
+    onSearchClick: () -> Unit = {}
+) {
+    Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = title,
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = "See All",
+                color = PrimaryPink,
+                fontSize = 13.sp,
+                modifier = Modifier.clickable { onSearchClick() }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(
+                items = popularMovies,
+                key = { it.id }
+            ) { movie ->
+                PopularMovieCard(
+                    movie = movie,
+                    onClick = { //onMovieClick(movie)
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun PopularMovieCard(
+    movie: PopularMovieLocalData,
     onClick: () -> Unit
 ) {
     Column(

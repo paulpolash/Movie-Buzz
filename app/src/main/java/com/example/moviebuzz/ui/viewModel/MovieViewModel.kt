@@ -26,6 +26,9 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
     val currentMovieList: StateFlow<List<CurrentMovie>> = _CurrentMovieList.asStateFlow()
     private val _popularMovieList = MutableStateFlow<List<PopularMovieLocalData>?>(null)
     val popularMovieList: StateFlow<List<PopularMovieLocalData>?> = _popularMovieList.asStateFlow()
+
+//    private val _isRefreshing = MutableStateFlow(false)
+//    val isRefreshing = _isRefreshing.asStateFlow()
     fun getMovie(){
         viewModelScope.launch(Dispatchers.IO){
 
@@ -34,9 +37,9 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
             )
 
             when(val result = movieUseCase()){
-                is Result.Success<*> ->{
+                is Result.Success ->{
                     withContext(Dispatchers.IO){
-                        _movieData.value = result.data as Movie?
+                        _movieData.value = result.data
                         _uiState.value = MovieUiState(
                             movies = result.data
                         )
@@ -99,15 +102,16 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
                         _uiState.value = MovieUiState(
                             popularMovies = result.data
                         )
+//                        _isRefreshing.value = true
                     }
                 }
                 is Result.Error -> {
                     _uiState.value = MovieUiState(
                         error = result.error.message
                     )
+//                    _isRefreshing.value = false
                 }
-
-                    }
+            }
         }
     }
 }

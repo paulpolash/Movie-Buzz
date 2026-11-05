@@ -38,9 +38,9 @@ class MovieRepositoryIml(
                 }
             }
 
-            else -> {
-                Log.d("TAG", "Unknown error")
-            }
+//            else -> {
+//                Log.d("TAG", "Unknown error")
+//            }
         } as Result<Movie>
     }
 

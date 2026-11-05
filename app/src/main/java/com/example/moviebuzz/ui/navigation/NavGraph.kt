@@ -23,7 +23,9 @@ fun NavGraph(
             val state = viewModel.uiState.collectAsState()
 //            HomeScreen(viewModel,true, "no issue")
             HomeScreen(
+                viewModel= viewModel,
                 movies = state.value.currentMovies,
+                popularMovies = state.value.popularMovies,
 
                 onSearchClick = {
                      navController.navigate(Routes.Search.route)

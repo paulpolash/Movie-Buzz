@@ -20,6 +20,22 @@ fun MovieDto.toMovieDbData(): MovieDbData {
         homepage = homepage
     )
 }
+fun MovieDto.toDomain(): Movie{
+    return Movie(
+        id = id,
+        title = title,
+        originalTitle = original_title,
+        overview = overview,
+        posterPath = poster_path,
+        backdropPath = backdrop_path,
+        releaseDate = release_date,
+        runtime = runtime,
+        voteAverage = vote_average,
+        voteCount = vote_count,
+        tagline = tagline,
+        homepage = homepage
+    )
+}
 
 fun MovieDbData.toDomain(): Movie {
     return Movie(
