@@ -9,7 +9,9 @@ data class MovieUiState(
     val isLoading: Boolean = false,
     val movies: Movie? = null,
     val error: String? = null,
+    val isCurrentMovieLoading: Boolean = false,
     val currentMovies: List<CurrentMovie> = emptyList(),
+    val isPopularMovieLoading: Boolean = false,
     val popularMovies: List<PopularMovieLocalData> =  emptyList(),
 
 

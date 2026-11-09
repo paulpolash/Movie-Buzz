@@ -102,12 +102,12 @@ fun HomeScreen(
                     contentPadding = PaddingValues(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-//                    item {
-//                        FeaturedMovieCard(
-//                            movie = movies.first(),
-//                            onClick = { onMovieClick(movies.first()) }
-//                        )
-//                    }
+                    item {
+                        FeaturedMovieCard(
+                            movie = movies.first(),
+                            onClick = { onMovieClick(movies.first()) }
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))

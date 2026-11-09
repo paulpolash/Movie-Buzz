@@ -27,28 +27,34 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
     private val _popularMovieList = MutableStateFlow<List<PopularMovieLocalData>?>(null)
     val popularMovieList: StateFlow<List<PopularMovieLocalData>?> = _popularMovieList.asStateFlow()
 
-//    private val _isRefreshing = MutableStateFlow(false)
-//    val isRefreshing = _isRefreshing.asStateFlow()
     fun getMovie(){
         viewModelScope.launch(Dispatchers.IO){
 
-            _uiState.value = MovieUiState(
-                isLoading = true
-            )
-
+            _uiState.update {
+                it.copy(isLoading = true)
+            }
             when(val result = movieUseCase()){
                 is Result.Success ->{
-                    withContext(Dispatchers.IO){
+//                    withContext(Dispatchers.IO){
                         _movieData.value = result.data
-                        _uiState.value = MovieUiState(
-                            movies = result.data
-                        )
-                    }
+//                        _uiState.value = MovieUiState(
+//                            movies = result.data
+//                        )
+                        _uiState.update {
+                            it.copy(
+                                movies= result.data,
+                                isLoading = false
+                            )
+                        }
+//                    }
                 }
                 is Result.Error ->{
-                    _uiState.value = MovieUiState(
-                        error = result.error.message
-                    )
+                    _uiState.update {
+                        it.copy(
+                            error = result.error.message,
+                            isLoading = false
+                        )
+                    }
                 }
             }
 
@@ -57,22 +63,27 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
 
     fun getCurrentMovies(){
         viewModelScope.launch(Dispatchers.IO){
-            _uiState.value = MovieUiState(
-                isLoading = true
-            )
+            _uiState.update {
+                it.copy(isCurrentMovieLoading = true)
+            }
             when (val result = movieUseCase.getCurrentMovies()){
                 is Result.Success -> {
-                    withContext(Dispatchers.IO) {
                         _CurrentMovieList.value = result.data
-                        _uiState.value = MovieUiState(
-                            currentMovies = result.data
-                        )
-                    }
+                        _uiState.update {
+                            it.copy(
+                                currentMovies = result.data,
+                                isCurrentMovieLoading = false
+                            )
+                        }
+
                 }
                 is Result.Error -> {
-                    _uiState.value = MovieUiState(
-                        error = result.error.message
-                    )
+                    _uiState.update {
+                        it.copy(
+                            error = result.error.message,
+                            isCurrentMovieLoading = false
+                        )
+                    }
                 }
             }
         }
@@ -92,24 +103,28 @@ class MovieViewModel(private val movieUseCase: UseCase): ViewModel() {
     fun getPopularMovies() {
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.value = MovieUiState(
-                isLoading = true
+                isPopularMovieLoading = true
             )
-
+            _uiState.update {
+                it.copy(isPopularMovieLoading = true)
+            }
             when (val result = movieUseCase.getPopularMovies()) {
                 is Result.Success -> {
-                    withContext(Dispatchers.IO) {
                         _popularMovieList.value = result.data
-                        _uiState.value = MovieUiState(
-                            popularMovies = result.data
-                        )
-//                        _isRefreshing.value = true
-                    }
+                        _uiState.update {
+                            it.copy(
+                                popularMovies = result.data,
+                                isPopularMovieLoading = false
+                            )
+                        }
                 }
                 is Result.Error -> {
-                    _uiState.value = MovieUiState(
-                        error = result.error.message
-                    )
-//                    _isRefreshing.value = false
+                    _uiState.update {
+                        it.copy(
+                            error = result.error.message,
+                            isPopularMovieLoading = false
+                        )
+                    }
                 }
             }
         }
